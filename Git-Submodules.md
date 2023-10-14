@@ -99,6 +99,117 @@ Esta sección explica como crear submódulos a un repositorio de manera local, p
    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git push -u origin master
    ```
 
+   Si luego de la ejecución de este último comando, recibes un error similar al siguiente:
+
+   ```sh
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base> git push -u origin master
+   git@github.com: Permission denied (publickey).
+   fatal: Could not read from remote repository.
+
+   Please make sure you have the correct access rights
+   and the repository exists.
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+   ```
+
+   Ejecutas los siguientes comandos y debes obtener el mismo resultado satisfactorio como se muestra seguidamente:
+
+   ```sh
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base> git remote set-url origin https://github.com/potlitel/base_repo.git
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base> git remote -v
+   origin  https://github.com/potlitel/base_repo.git (fetch)
+   origin  https://github.com/potlitel/base_repo.git (push)
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base> git push -u origin master
+   Enumerating objects: 5, done.
+   Counting objects: 100% (5/5), done.
+   Delta compression using up to 4 threads
+   Compressing objects: 100% (5/5), done.
+   Writing objects: 100% (5/5), 68.45 KiB | 17.11 MiB/s, done.
+   Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+   To https://github.com/potlitel/base_repo.git
+   * [new branch]      master -> master
+   Branch 'master' set up to track remote branch 'master' from 'origin'.
+   PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+   ```
+
+10. Verificamos el historial de commits realizados mediante el siguiente comando:
+
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git log --oneline
+    e0b6771 (HEAD -> master, origin/master) Commit inicial
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+
+11. Desde la raíz de la carpeta del repositorio base, creamos la carpeta del repositorio "submodulo" de nuestro repositorio base:
+
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> mkdir standard_repo
+
+
+     Directory: G:\Trabajo\FSA-Group\Git-Submodules\base
+
+
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    d-----        10/13/2023  10:12 PM                standard_repo
+
+
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+
+12. Volvemos a ejecutar los pasos 2 al 10 anteriomente listados
+
+13. Regresamos a la raiz del repositorio base:
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base\standard_repo> cd ..
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+14. Ejecutamos el siguiente comando:
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git submodule add ./standard_repo
+    Adding existing repo at 'standard_repo' to the index
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+15. Verificamos que se haya creado el submodulo correspondiente:
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git status
+    On branch main
+    Changes to be committed:
+    (use "git restore --staged <file>..." to unstage)
+         new file:   .gitmodules
+         new file:   standard_repo
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+16. Adicionamos los cambios:
+
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git add .
+    ```
+
+17. Ejecutamos commit:
+
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git commit -m "Se adiciona submodulo al repo base"
+    [main d6d2f1e] Se adiciona submodulo al repo base
+    2 files changed, 4 insertions(+)
+    create mode 100644 .gitmodules
+    create mode 160000 standard_repo
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base>
+    ```
+
+18. Finalizamos subiendo los cambios realizados:
+    ```sh
+    PS G:\Trabajo\FSA-Group\Git-Submodules\base> git push --set-upstream origin main
+    Enumerating objects: 4, done.
+    Counting objects: 100% (4/4), done.
+    Delta compression using up to 4 threads
+    Compressing objects: 100% (3/3), done.
+    Writing objects: 100% (3/3), 376 bytes | 376.00 KiB/s, done.
+    Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+    To https://github.com/potlitel/base_repo.git
+      e0b6771..d6d2f1e  main -> main
+    Branch 'main' set up to track remote branch 'main' from 'origin'.
+    ```
+
 ### Modo remoto
 
 This section provide a step-by-step description of how to get the development environment running.
@@ -107,6 +218,9 @@ This section provide a step-by-step description of how to get the development en
    ```sh
    git clone https://github.com/potlitel/HR-Management.git
    ```
+
+````
+
 2. Position yourself inside the newly cloned repo folder.
    ```sh
    cd HR-Management
@@ -116,3 +230,4 @@ This section provide a step-by-step description of how to get the development en
    dotnet restore
    ```
 4. Open the project solution file (HR-Management.sln) using Visual Studio.
+````

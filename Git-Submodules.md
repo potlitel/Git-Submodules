@@ -209,6 +209,13 @@ Esta sección explica como crear submódulos a un repositorio de manera local, p
       e0b6771..d6d2f1e  main -> main
     Branch 'main' set up to track remote branch 'main' from 'origin'.
     ```
+19. Accedemos al repositorio base publicado en github, y comprobamos que nuestro repositorio base contiene una carpeta nombrada .gitmodules:
+
+   <img src="images/1.png" alt="Logo" width="970" height="370">
+
+Si hacemos clic en dicha carpeta podemos visualizar los detalles de los submódulos de este repositorio base
+
+   <img src="images/2.png" alt="Logo" width="970" height="270">
 
 ### Modo remoto
 

@@ -221,20 +221,110 @@ Si hacemos clic en dicha carpeta podemos visualizar los detalles de los submódu
 
 This section provide a step-by-step description of how to get the development environment running.
 
-1. Clone the repo with the following command.
+1. Para esta variante, vamos a partir del hecho que tenemos dos repositorios previamente creados, [ClassLibraryBase](https://github.com/potlitel/ClassLibraryBase) como potencial repositorio base y [consoleApp](https://github.com/potlitel/consoleApp) como potencial repositorio submódulo.
+
+2. Procedemos a clonar el repositorio que tomaremos como base, en este caso ClassLibraryBase:
+
    ```sh
-   git clone https://github.com/potlitel/HR-Management.git
+   PS G:\> git clone https://github.com/potlitel/ClassLibraryBase
+   Cloning into 'ClassLibraryBase'...
+   remote: Enumerating objects: 14, done.
+   remote: Counting objects: 100% (14/14), done.
+   remote: Compressing objects: 100% (10/10), done.
+   remote: Total 14 (delta 3), reused 14 (delta 3), pack-reused 0
+   Receiving objects: 100% (14/14), 5.17 KiB | 1.03 MiB/s, done.
+   Resolving deltas: 100% (3/3), done.
+   PS G:\>
    ```
 
-````
+3. Nos posicionamos dentro del repositorio recien clonado.
+   ```sh
+   PS G:\> cd ClassLibraryBase
+   ```
+4. Listamos el contenido del mismo
 
-2. Position yourself inside the newly cloned repo folder.
    ```sh
-   cd HR-Management
+   PS G:\ClassLibraryBase> ls
+
+
+    Directory: G:\ClassLibraryBase
+
+
+   Mode                 LastWriteTime         Length Name
+   ----                 -------------         ------ ----
+   d-----        10/16/2023   1:04 PM                ClassLibraryBase
+   -a----        10/16/2023   1:04 PM           2581 .gitattributes
+   -a----        10/16/2023   1:04 PM           6585 .gitignore
+   -a----        10/16/2023   1:04 PM           1641 ClassLibraryBase.sln
+   -a----        10/16/2023   1:04 PM             18 README.md
+
+
+   PS G:\ClassLibraryBase>
    ```
-3. Execute the following command
+
+5. Desde la raíz de repositorio base, ejecutamos el siguiente comando para clonar otro repositorio, como un submódulo de nuestro repositorio principal:
+
    ```sh
-   dotnet restore
+   PS G:\ClassLibraryBase> git submodule add https://github.com/potlitel/consoleApp
+   Cloning into 'G:/ClassLibraryBase/consoleApp'...
+   remote: Enumerating objects: 65, done.
+   remote: Counting objects: 100% (65/65), done.
+   remote: Compressing objects: 100% (31/31), done.
+   remote: Total 65 (delta 22), reused 63 (delta 20), pack-reused 0
+   Receiving objects: 100% (65/65), 90.18 KiB | 35.00 KiB/s, done.
+   Resolving deltas: 100% (22/22), done.
+   warning: LF will be replaced by CRLF in .gitmodules.
+   The file will have its original line endings in your working directory
+   PS G:\ClassLibraryBase>
    ```
-4. Open the project solution file (HR-Management.sln) using Visual Studio.
-````
+
+6. Ejecutamos el siguiente comando para verificar la creación del fichero ".gitmodules".
+
+   ```sh
+   PS G:\ClassLibraryBase> git status
+   On branch master
+   Your branch is up to date with 'origin/master'.
+
+   Changes to be committed:
+   (use "git restore --staged <file>..." to unstage)
+         new file:   .gitmodules
+         new file:   consoleApp
+
+   PS G:\ClassLibraryBase>
+   ```
+
+7. Para añadir el repositorio al [staging area](https://keepcoding.io/blog/que-es-staging-area-y-para-que-sirve/#:~:text=El%20Staging%20Area%20de%20Git%2C%20o%20git%20staged%20area%2C%20es,en%20el%20repositorio%20en%20producci%C3%B3n.), ejecutamos el siguiente comando:
+
+   ```sh
+   PS G:\ClassLibraryBase> git add .
+   ```
+
+8. Guardamos los cambios de forma permanente, ejecutando el siguiente comando:
+
+   ```sh
+   PS G:\ClassLibraryBase> git commit -m "Se adiciona submodulo"
+   [master fa8c0d1] Se adiciona submodulo
+   2 files changed, 4 insertions(+)
+   create mode 100644 .gitmodules
+   create mode 160000 consoleApp
+   PS G:\ClassLibraryBase>
+   ```
+
+9. Actualizamos la rama principal:
+
+   ```sh
+   PS G:\ClassLibraryBase> git push origin
+   Enumerating objects: 4, done.
+   Counting objects: 100% (4/4), done.
+   Delta compression using up to 4 threads
+   Compressing objects: 100% (3/3), done.
+   Writing objects: 100% (3/3), 380 bytes | 190.00 KiB/s, done.
+   Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+   To https://github.com/potlitel/ClassLibraryBase
+      86d7417..fa8c0d1  master -> master
+   PS G:\ClassLibraryBase>
+   ```
+
+10. Para finalizar, podemos verificar desde nuestro repositorio base, como se nos muestra una referencia a nuestros submodulos
+
+   <img src="images/3.png" alt="Logo" width="970" height="460">
